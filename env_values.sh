@@ -3,7 +3,7 @@
 
 clear
 echo ""
-echo "*************Some**Environment***Variables*************************"
+echo "***********Some***Environment***Variables***********"
 echo ""
 echo "The env value for user is : $USER"
 echo ""
