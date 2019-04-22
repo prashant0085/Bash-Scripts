@@ -14,42 +14,42 @@
 echo "================================================================="
 echo "=                Installing OpenJDK                             ="
 echo "================================================================="
-yum install -y java-1.8.0-openjdk.x86_64
+yum install -y java-1.8.0-openjdk.x86_64 >> /dev/null
 echo "================================================================="
 echo "=              Installing OpenJDK-Devel                         ="
 echo "================================================================="
-yum install -y java-1.8.0-openjdk-devel.x86_64
+yum install -y java-1.8.0-openjdk-devel.x86_64 >> /dev/null
 echo "================================================================="
 echo "=                  Installing wget                              ="
 echo "================================================================="
-yum install -y wget
+yum install -y wget >> /dev/null
 echo "================================================================="
 echo "=                importing jenkins repo                         ="
 echo "================================================================="
-wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo >> /dev/null
 echo "================================================================="
 echo "=                 Importing jenkins key                         ="
 echo "================================================================="
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key >> /dev/null
 echo "================================================================="
 echo "=                   Installing Updates                          ="
 echo "================================================================="
-yum -y update
+yum -y update >> /dev/null
 echo "================================================================="
 echo "=                    Installing Jenkins                         ="
 echo "================================================================="
-yum install -y jenkins
+yum install -y jenkins >> /dev/null
 echo "================================================================="
 echo "=                    Jenkins Installed                          ="
 echo "================================================================="
 echo "================================================================="
 echo "=                     Starting Jenkins                          ="
 echo "================================================================="
-systemctl start jenkins
+systemctl start jenkins >> /dev/null
 echo "================================================================="
 echo "=                     Enabling Jenkins                          ="
 echo "================================================================="
-systemctl enable jenkins
+systemctl enable jenkins >> /dev/null
 echo "================================================================="
 echo "=                 Jenkins is up and running                     ="
 echo "================================================================="
