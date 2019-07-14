@@ -1,0 +1,759 @@
+[H[2J================
+Script name : ant.sh
+================
+Contains below: 
+================
+#==================================================================================================================================================
+#
+#	 File : ant.sh
+#	 Description : Script to install and start ant
+#	 Command to run : sh ant.sh
+#	 Created : Wed Aug 22 11:09:36 IST 2018
+#	 Author : Prashant Tiwari
+#
+#===================================================================================================================================================
+
+#!bin/bash
+
+clear
+
+yum install -y Java-1.8.0-openjdk >> /dev/null
+yum install -y Java-1.8.0-openjdk-devel >> /dev/null
+yum install -y wget >> /dev/null
+
+wget http://www.us.apache.org/dist/ant/binaries/apache-ant-1.10.5-bin.tar.gz
+
+tar xzvf apache-ant-1.10.5-bin.tar.gz -C /opt/ant
+sh -c 'echo ANT_HOME=/opt/ant >> /etc/environment'
+ln -s /opt/ant/bin/ant /usr/bin/ant
+source /etc/environment
+
+================
+Script name : arithmetic.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# Script for arithmetic
+
+clear
+echo ""
+expr 4 + 5
+echo ""
+expr 3 + 5 \* 4
+echo ""
+expr \( 3 + 5 \) \* 5
+echo ""
+
+================
+Script name : case.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# Script for case statement
+
+clear
+
+echo "Main Menu"
+echo "========="
+echo "1)"
+echo "2)"
+echo "3)"
+echo ""
+echo "Enter your choice"
+read CASECHOICE
+
+case $CASECHOICE in
+ 1)
+  echo "one";;
+ 2)
+  echo "two";;
+ 3)
+  echo "three";;
+ *)
+  echo "incorrect choice please try again";;
+esac
+
+================
+Script name : cliargs.sh
+================
+Contains below: 
+================
+#!/bin/bash
+#script accepting values from cli args as username and password.
+
+clear
+
+USERNAME=$1
+PASSWORD=$2
+
+echo ""
+echo "Username from cliargs is : $USERNAME"
+echo ""
+echo "Password from cliargs is : $PASSWORD"
+echo ""
+
+================
+Script name : cmdsub.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script for command substitution
+clear
+
+shopt -s expand_aliases
+
+echo ""
+
+
+
+TODAYSDATE=`date`
+USERFILES=`find /home -user xsscorp`
+echo ""
+echo "todays date is $TODAYSDATE"
+echo ""
+echo "Files owned by user are below"
+echo "$USERFILES" | tail 
+echo ""
+
+alias TODAY="date"
+alias UFILES="find /home -user xsscorp"
+
+A=`TODAY`
+B=`UFILES`
+echo ""
+echo "With Alias date is $A"
+echo ""
+echo "with Alias file is below :"
+echo "$B" | tail 
+echo ""
+
+================
+Script name : devnull.sh
+================
+Contains below: 
+================
+#==================================================================================================================================================
+#
+#
+#	 File : devnull.sh
+#	 Description : Script to test dev null
+#	 Command to run : sh devnull.sh
+#	 Created : Wed Aug 22 11:09:36 IST 2018
+#	 Author : Prashant Tiwari
+#
+#
+#===================================================================================================================================================
+
+
+#!/bin/bash
+
+clear
+
+
+Echo "This line is going to be printed on Terminal"
+Echo "This line is line will not be printing on Terminal" >> /dev/null
+
+================
+Script name : env_values.sh
+================
+Contains below: 
+================
+#!/bin/bash
+#bash script to display environment variables
+
+clear
+echo ""
+echo "***********Some***Environment***Variables***********"
+echo ""
+echo "The env value for user is : $USER"
+echo ""
+echo "The env value for home is : $HOME"
+echo ""
+echo "The env value for History control is : $HISTCONTROL"
+echo ""
+echo "The env value for term is : $TERM"
+echo ""
+
+================
+Script name : errorhandle.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script to handle error
+
+clear
+
+DIR=$1
+
+cd "$DIR" 2> /dev/null
+
+if [ $? != "0" ]; then
+ echo "directory not present"
+else
+ echo "List directory below `ls -l`"
+fi
+
+================
+Script name : exit.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# bash script for exit status
+set -e
+clear
+echo ""
+expr 1 + 2
+echo "Exit status is : $?"
+echo ""
+rm prashant.txt
+echo "Exit status is : $?"
+echo ""
+expr 3 \* 4
+echo "Exit status is : $?"
+
+================
+Script name : filedis.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script to read file using file descriptors
+
+clear
+
+echo "Enter the name of the file"
+read FILE
+
+exec 5<>$FILE
+
+while read -r SUPERHEROES ; do
+ echo "Name of hero is : $SUPERHEROES"
+done <&5
+
+echo "Current date is `date`" >&5
+
+exec 5>&-
+
+================
+Script name : forloop.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# Using for loop displaying out all shell scripts in current directory
+
+clear
+
+SHELLSCRIPTS=`ls *.sh`
+
+for SCRIPT in $SHELLSCRIPTS;do
+ DISPLAY=`cat $SCRIPT`
+ echo -e "================
+Script name : $SCRIPT
+================
+Contains below: 
+================
+$DISPLAY
+"
+done
+
+================
+Script name : func.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# simple function
+
+clear
+
+#printing message outside a funtion.
+echo "This message was displayed outside of a function"
+
+funcExample () {
+  #printing a message from inside the function.
+  echo "This message was displayed inside of a function"
+}
+
+#calling the function
+funcExample
+
+================
+Script name : guess.sh
+================
+Contains below: 
+================
+#!/bin/bash
+#This script guess if number is special using if condition
+
+clear
+
+echo ""
+echo "Please guess a secret number between 1 to 5"
+read special
+echo ""
+
+if [ $special -eq 3  ]
+ then
+  echo -e "Congratulations! you have guessed correct special number
+"
+fi
+
+================
+Script name : ifs.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script to delimit texts from file using IFS 
+
+clear
+
+echo "Enter the name of the file"
+read FILE
+
+echo "Enter the Delimiter you want"
+read DELIMITER
+
+IFS="$DELIMITER"
+
+while read -r CPU MEM DISK ; do
+ echo "CPU is : $CPU"
+ echo "MEMORY is : $MEM"
+ echo "DISK STORAGE is : $DISK"
+done <$FILE
+
+================
+Script name : ifthenelse.sh
+================
+Contains below: 
+================
+#!/bin/bash
+#Script to to test enter number using if then else
+
+clear
+
+echo ""
+echo "Enter a number between 1 and 3"
+read NUMBER
+
+if [ "$NUMBER" -eq "1" ] 2> /dev/null; then
+ echo "You have a enter number : $NUMBER"
+elif [ "$NUMBER" -eq "2" ] 2> /dev/null; then
+ echo "You have a typed number : $NUMBER"
+elif [ "$NUMBER" -eq "3" ] 2> /dev/null; then
+ echo "You have a selected number : $NUMBER"
+else
+ echo "You did not enter a number between 1 and 3"
+fi
+
+================
+Script name : infobox.sh
+================
+Contains below: 
+================
+#!/bin/bash
+
+clear
+
+INFOBOX=${INFOBOX=dialog}
+TITLE="default"
+XCOORD="10"
+YCOORD="20"
+
+displayInfoBox () {
+  $INFOBOX --title "$1" --infobox "$2" "$3" "$4"
+  sleep "$5"
+}
+
+if [ "$1" == "shutdown" ] ; then
+ displayInfoBox "WARNING!!!" "This message is an alert and System will shutdown after 5 sec" "15" "25" "5"
+else
+ displayInfoBox "Alert!!!" "This message is an unharmful alert" "15" "25" "5"
+fi
+
+================
+Script name : inputbox.sh
+================
+Contains below: 
+================
+#!/bin/bash
+
+clear
+
+INPUTBOX=${INPUTBOX=dialog}
+
+displayInputBox () {
+ $INPUTBOX --title "$1" --inputbox "$2" "$3" "$4" 2>tmpfile.txt
+}
+
+displayInputBox "DISPLAY FILE NAME" "Enter file name you want to see" "15" "25"
+
+if [ "`cat tmpfile.txt`" != "" ]; then
+  cat "`cat tmpfile.txt`"
+else
+  echo "nothing to do"
+fi
+
+================
+Script name : interactive.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# interactive script with user asking their firstname, lastname, age
+
+clear
+echo ""
+echo "Enter your first name :"
+read FIRSTNAME
+echo ""
+echo "Enter your last name :"
+read LASTNAME
+echo ""
+echo "Enter your current age"
+read USERAGE
+echo ""
+echo ""
+echo "Your first name is : $FIRSTNAME"
+echo ""
+echo "Your last name is : $LASTNAME"
+echo ""
+echo "Your full name is : $FIRSTNAME $LASTNAME"
+echo ""
+echo "In 10 years your age age will be `expr $USERAGE + 10`"
+echo ""
+
+================
+Script name : jenkins.sh
+================
+Contains below: 
+================
+#============================================================================================================================================
+#
+#
+#			  File : jenkins.sh
+#	   Description : Script to install and start jenkins
+#	Command to run : sh jenkins.sh
+#		   created : Wed Aug 22 11:09:36 IST 2018
+#			Author : Prashant Tiwari
+#			
+#
+#=============================================================================================================================================
+
+#!/bin/bash
+echo "================================================================="
+echo "=                Installing OpenJDK                             ="
+echo "================================================================="
+yum install -y java-1.8.0-openjdk.x86_64 >> /dev/null
+echo "================================================================="
+echo "=              Installing OpenJDK-Devel                         ="
+echo "================================================================="
+yum install -y java-1.8.0-openjdk-devel.x86_64 >> /dev/null
+echo "================================================================="
+echo "=                  Installing wget                              ="
+echo "================================================================="
+yum install -y wget >> /dev/null
+echo "================================================================="
+echo "=                importing jenkins repo                         ="
+echo "================================================================="
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo >> /dev/null
+echo "================================================================="
+echo "=                 Importing jenkins key                         ="
+echo "================================================================="
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key >> /dev/null
+echo "================================================================="
+echo "=                   Installing Updates                          ="
+echo "================================================================="
+yum -y update >> /dev/null
+echo "================================================================="
+echo "=                    Installing Jenkins                         ="
+echo "================================================================="
+yum install -y jenkins >> /dev/null
+echo "================================================================="
+echo "=                    Jenkins Installed                          ="
+echo "================================================================="
+echo "================================================================="
+echo "=                     Starting Jenkins                          ="
+echo "================================================================="
+systemctl start jenkins >> /dev/null
+echo "================================================================="
+echo "=                     Enabling Jenkins                          ="
+echo "================================================================="
+systemctl enable jenkins >> /dev/null
+echo "================================================================="
+echo "=                 Jenkins is up and running                     ="
+echo "================================================================="
+
+================
+Script name : menubox.sh
+================
+Contains below: 
+================
+#!/bin/bash
+
+clear
+
+MENUBOX=${MENUBOX=dialog}
+
+displayMenuBox () {
+  $MENUBOX --title "MAIN MENU" --menu "Use up/down arrow keys to navigate and enter key to select menu option" 15 60 4 1 "Display Top 10 mem% using process" 2 "Display Top 10 cpu% using process" 3 "Display Top 10 commands" x "Exit" 2>choice.txt
+}
+
+displayMenuBox
+
+case "`cat choice.txt`" in
+ 1)
+  ps -eo %mem,%cpu,comm --sort=-%mem | head;;
+ 2)
+  ps -eo %mem,%cpu,comm --sort=-%cpu | head;;
+ 3)
+  ps -eo %mem,%cpu,comm | head;;
+ 4)
+  echo "Exit";;
+esac
+
+================
+Script name : msgbox.sh
+================
+Contains below: 
+================
+#!/bin/bash
+
+clear
+
+MSGBOX=${MSGBOX=dialog}
+TITLE="default"
+XCOORD=10
+YCOORD=20
+
+displayMsgBox () {
+  $MSGBOX --title "$1" --msgbox "$2" "$3" "$4"
+}
+
+if [ $1 == "shutdown" ]; then
+ displayMsgBox "Alert!!!" "System will shutdown immediately after you click OK" "15" "25"
+else
+ displayMsgBox "Message!!!" "This is a message for all of you" "15" "25"
+fi
+
+================
+Script name : nestedFunc.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script for nested functions
+
+clear
+
+echo "Please enter gender(male/female)"
+read GENDER
+
+funcHuman () {
+
+	ARMS=2
+	LEGS=2	
+
+	funcMan () {
+	BEARD=1 
+ }
+	funcWoman () {
+ 	BEARD=0
+ }
+}
+
+if [ $GENDER == "male" ]; then
+ funcHuman
+ funcMan
+else
+ funcHuman
+ funcWoman
+fi
+
+echo ""
+echo "For gender $GENDER below are the information : "
+echo ""
+echo "A $GENDER has $ARMS arms and $LEGS legs and $BEARD beard"
+echo ""
+
+================
+Script name : readfile.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script to read file in simple way
+
+clear
+
+FILE=$1
+
+while read -r SUPERHEROES ; do
+ echo "Name is : $SUPERHEROES"
+done <$FILE
+
+================
+Script name : serverlist.sh
+================
+Contains below: 
+================
+#!/bin/bash
+#shell script to list out an array of servers
+
+clear
+
+servers=("server1" "server2" "server3" "server4")
+count=0
+
+for SERVER in ${servers[@]};do
+ echo "Name of server number $count is -> ${servers[count]}"
+ count=`expr $count + 1`
+done
+
+================
+Script name : start_and_end_time.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# This script dislpays username, password, start of script and end of script
+
+MYUSERNAME=PRASHANT0085 #Setting value for username
+MYPASSWORD=Computer1234 #setting value for password
+STARTOFSCRIPT=`date` #setting start of script using command redirection
+
+clear
+
+echo ""
+echo "Script started at $STARTOFSCRIPT" # displaying out start of script date time
+echo ""
+echo "My Username is $MYUSERNAME" # dislpaying username
+echo ""
+echo "My Password is $MYPASSWORD" # displaying password
+echo ""
+ENDOFSCRIPT=`date` # setting end of script using commanf redirection
+echo "Script ended at $ENDOFSCRIPT" # displying out end of script date time
+echo ""
+
+================
+Script name : systeminfo.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# This script is for all current sys info
+
+clear
+
+echo "Info list about System"
+echo "======================"
+echo ""
+echo "1) Top 5 CPU using process"
+echo "2) Top 5 Memory using process"
+echo "3) currently all logged users"
+echo "4) System space info"
+echo "5) Current kernel in use"
+echo ""
+echo "Please enter your choice and press enter"
+read OPTION
+
+case $OPTION in
+ 1)
+  ps -eo %mem,%cpu,comm --sort=-%cpu | head -n 6;;
+ 2)
+  ps -eo %mem,%cpu,comm --sort=-%mem | head -n 6;;
+ 3)
+  who;;
+ 4)
+  df -hl;;
+ 5)
+  uname -r;;
+ *)
+  echo "your choice was invalid please try again"
+esac
+
+================
+Script name : trap.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script to set trap in script to avoid using ctrl + c/z kill by user
+
+clear
+
+trap 'echo "Enter q or Q to exit successfully"' SIGINT SIGTERM SIGTSTP
+
+while [ "$CHOICE" != "Q" ] && [ "$CHOICE" != "q" ]; do
+ echo "Menu"
+ echo "===="
+ echo "1)  "
+ echo "2)  "
+ echo "3)  "
+ echo "q)  "
+ echo ""
+ read CHOICE
+ clear
+done
+
+================
+Script name : varScope.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# script to check var scope
+
+clear
+
+OUT=$1
+
+funcVar () {
+	IN=$1
+}
+
+echo "======================"
+echo "before function called"
+echo "======================"
+echo ""
+echo "Global value is : $OUT"
+echo "function value is : $IN"
+echo ""
+echo "======================"
+
+funcVar 5
+
+echo "after function called"
+echo "======================"
+echo ""
+echo "Global value is : $OUT"
+echo "function value is : $IN"
+echo ""
+
+================
+Script name : while.sh
+================
+Contains below: 
+================
+#!/bin/bash
+# Script for using while loop
+
+clear
+
+echo "Enter the number you want the while loop to run"
+read CHOICE
+
+COUNT=1
+
+while [ $COUNT -le $CHOICE ]
+do
+ echo "While loop no $COUNT"
+ COUNT="`expr $COUNT + 1`"
+done
+
